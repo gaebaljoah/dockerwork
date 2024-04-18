@@ -1,0 +1,25 @@
+실행중인 프로세스 종료 
+1. docker ps 
+2. docker stop 컨테이너ID
+
+종료된 컨테이터 삭제 
+1. docker ps -a
+2. docker rm 컨테이너ID
+
+이미지 삭제
+1. docker images
+2. docker rmi 이미지이름
+
+linux 혹은 MAC
+docker stop $(docker ps -q)
+docker rm $(docker ps -a -q)
+docker rmi -f $(docker images -q)
+
+
+windows
+for /f "delims=" %A in ('docker ps -q') do (set rm1=%A)
+for /f "delims=" %A in ('docker ps -a -q') do (set rm2=%A)
+for /f "delims=" %A in ('docker images -q') do (set rm3=%A)
+docker stop %rm1%
+docker rm %rm2%
+docker rmi -f %rm3%
