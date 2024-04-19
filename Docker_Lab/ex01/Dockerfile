@@ -14,4 +14,4 @@ ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "application.jar"]
 #명령어 java -jar -Dspring .profiles.active=dev application.jar --server.port=8080 과 같다.
 #ENTRYPOINT는 무조건 실행할 명령어를 넣어주면 좋고 CMD에는 추가적인 명령어를 넣어주는 게 좋다
 
-CMD ["--server.port=8082"]
+CMD ["--server.port=3000"]
