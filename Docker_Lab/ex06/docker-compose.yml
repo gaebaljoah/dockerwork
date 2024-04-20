@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    volumes:
+      #아래 volumes: 로 정의한 도커 volume으로 접속할 시에는 
+      #{volume명}:{컨테이너 하위 폴더}
+      - mysql-compose-volume:/var/lib/mysql
+      # 호스트로 연결시에 해당 프로젝트에 하위 database관련 하위 폴더를 생성후
+      # {./폴더명}:{컨테이너 하위 폴더}
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=rootdb
+    ports:
+      - "3307:3306"
+
+volumes:
+  mysql-compose-volume:
