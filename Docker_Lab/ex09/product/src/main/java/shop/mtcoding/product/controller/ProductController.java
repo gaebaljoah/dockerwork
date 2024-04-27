@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import shop.mtcoding.product.model.Product;
 import shop.mtcoding.product.model.ProductRepository;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @RestController
 public class ProductController {
