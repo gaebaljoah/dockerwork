@@ -1,0 +1,40 @@
+version: '3'
+services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+      #context: 에 경로를 넣어줘야 해당 폴더의 init.sql의 내용을 읽을 수 있다.
+      #예를 들어 context: 없이 dockerfile: ./docker-test-db/Dockerfile 이렇게 사용할 수 있지만
+      #Dockerfile내부에 정의 되어있는 init.sql copy가 불가능해진다.
+      #즉,context를 쓰는 이유는 dockerfile내부에서 경로를 찾을때 작동이 잘될 수 있게 하기 위해서 사용함.
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/store:/var/lib/mysql
+      # "/var/lib/mysql"이곳은 컨테이너 실행 시 mysql 데이터가 쌓이는 곳인데 그 곳을 ./docker-test-db/store 폴더에 저장하겠다는 뜻임.
+    networks:
+      - network
+
+  server:
+    build:
+      context: ./product
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8000:8080
+    depends_on:
+      - db
+      #(servicename) 이미지를 구울때 server부터 구우면 서버가 터진다
+      #그래서 depend_on을 통해 먼저 구울 dockerfile을 선택한다.
+    environment:
+      #디비 포트포워딩 할때 호스트 포트 입력해줘야함 그래야 연결됨
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/metadb?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_DRIVER: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root1234
+    networks:
+      - network
+
+networks:
+  network:
