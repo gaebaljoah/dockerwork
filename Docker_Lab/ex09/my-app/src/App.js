@@ -9,7 +9,7 @@ function App() {
   let num = 1;
 
   async function onLoad(){
-    let response = await fetch("http://localhost:8000/products");
+    let response = await fetch("/api/products");
     let responseBody = await response.json();
     console.log("onLoad", responseBody);
     setProducts(responseBody)

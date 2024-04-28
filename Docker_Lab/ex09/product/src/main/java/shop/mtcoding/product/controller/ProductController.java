@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import shop.mtcoding.product.model.Product;
 import shop.mtcoding.product.model.ProductRepository;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000") nginx.conf에서 cors 설정을 했기 때문에 없애도됨.
 @RequiredArgsConstructor
 @RestController
 public class ProductController {
