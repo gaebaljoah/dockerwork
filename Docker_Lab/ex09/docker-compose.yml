@@ -16,7 +16,7 @@ services:
     networks:
       - network
 
-  server:
+  backend:
     build:
       context: ./product
       dockerfile: Dockerfile
@@ -36,5 +36,17 @@ services:
     networks:
       - network
 
+  frontend:
+    build:
+      context: ./my-app
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    networks:
+      - network
+      
 networks:
   network:
